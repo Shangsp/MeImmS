@@ -3,6 +3,7 @@ setwd("D:\\model")
 library(pROC)
 library(randomForest)
 library(caret)
+data2 <- read.table("diffCpGMatrix.txt",header=T,sep='\t',row.names=1,check.names=F)
 output <- c()
 for (i in 1:50){
   trainName <- createDataPartition(y=data2$group,p=0.9,list=FALSE)
@@ -17,7 +18,7 @@ out <- output[order(output$pregroup),]
 modelroc <- roc(as.numeric(out$pregroup),as.numeric(out$group),smooth=T，grid=TRUE=F)
 plot(modelroc, print.auc=TRUE, auc.polygon=TRUE,auc.polygon.col="#4FC1E9",main="ROC curve")
 
-setwd("D:\\5.ImmuneMethy\\3.model")
+setwd("D:\\model")
 write.table(data2,"modelData.txt",quote=F,sep='\t')
 write.table(out,"ROCData.txt",quote=F,sep='\t',row.names=F)
 pdf("ROC.pdf",width=5,height=5)
@@ -29,7 +30,7 @@ setwd("D:\\model")
 library(pROC)
 library(randomForest)
 library(caret)
-mydata <- read.table("modelData.txt",header=T,sep='\t',row.names=1,check.names=F)
+mydata <- read.table("diffCpGMatrix.txt",header=T,sep='\t',row.names=1,check.names=F)
 output <- c()
 for (i in 1:100){
 for (j in 1:10){
